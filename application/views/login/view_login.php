@@ -18,12 +18,13 @@
 			<main>
 				<div class="container">
 					<div class="row justify-content-center">
-						<div class="col-lg-5">
+						<div class="col-lg-6">
 							<div class="card shadow-lg border-0 rounded-lg mt-5">
 								<div class="card-header">
 									<h3 class="text-center font-weight-light my-4"><?= APP_NAME ?></h3>
 								</div>
 								<div class="card-body">
+									<?php get_flash_messages()?>
 									<form action="<?= base_url('login/autentica')?>" method="post">									
 										<div class="form-floating mb-3">
 											<input class="form-control" id="usuario" name="usuario" type="text" required placeholder="Seu usuário" />

@@ -14,4 +14,21 @@ class Usuario extends CI_Controller {
 	public function index(){
 		template();
 	}
+
+	public function logout()
+	{
+		$this->session->unset_userdata('usuario');
+		return redirect('home');
+	}
+
+	public function view_altera_senha()
+	{
+		$dados['tela'] = 'usuarios/view_altera_senha';
+		template($dados);
+	}
+
+	public function altera_senha()
+	{
+		imprime([$_POST]);
+	}
 }
