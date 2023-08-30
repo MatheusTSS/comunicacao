@@ -67,11 +67,35 @@ class Usuario extends CI_Controller {
 
 	public function desativa_usuario()
 	{
-		resposta_json('success', 'Dados retornados com sucesso. public function desativa_usuario()', $_POST);
+		// verificar se post existe e se não esta vazio
+		if (!isset($_POST) || empty($_POST)) {
+			return redirect('usuario');
+		}
+
+		$id = $this->input->post('id');
+		$sucesso = $this->model_usuario->desativa_usuario($id);
+
+		if ($sucesso) {
+			resposta_json('success', 'Usuário desativado com sucesso!');
+		} else {
+			resposta_json('error', 'Erro ao desativar usuário!');
+		}
 	}
 
 	public function ativa_usuario()
 	{
-		resposta_json('success', 'Dados retornados com sucesso. public function ativa_usuario()', $_POST);
+		// verificar se post existe e se não esta vazio
+		if (!isset($_POST) || empty($_POST)) {
+			return redirect('usuario');
+		}
+
+		$id = $this->input->post('id');
+		$sucesso = $this->model_usuario->ativa_usuario($id);
+
+		if ($sucesso) {
+			resposta_json('success', 'Usuário ativado com sucesso!');
+		} else {
+			resposta_json('error', 'Erro ao ativar usuário!');
+		}
 	}
 }

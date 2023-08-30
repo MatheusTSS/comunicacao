@@ -1,5 +1,7 @@
 <div class="container mt-5">
-	<div id="cadastro">
+	<div id="alert" class="alert d-none" role="alert"></div>
+
+	<div id="cadastro" class="d-none">
 		<h3 class="mt-3 mb-3">Cadastrar Usuario</h3>
 
 		<div class="row g-3">
@@ -12,12 +14,16 @@
 				<input type="text" class="form-control" id="senha" name="senha" disabled value="Abc@123">
 			</div>
 		</div>
-		<div class="col-12">
-			<button type="submit" id="salvar" class="btn btn-primary">Salvar</button>
+		<div class="d-flex justify-content-between">
+			<button type="button" id="voltar" class="btn btn-danger">Voltar</button>
+			<button type="button" id="salvar" disabled class="btn btn-primary">Salvar</button>
 		</div>
 	</div>
 
 	<div id="lista">
+		<div>
+			<button id="cadastrar" type="button" class="btn btn-primary mb-3">Cadastrar</button>
+		</div>
 		<div class="card">
 			<div class="card-header">
 				<h3>Lista Usuarios</h3>
@@ -52,7 +58,7 @@
 	async function lista_dados_usuarios() {
 
 		try {
-			
+
 			let response = await fetch(base_url + 'usuario/lista_usuarios')
 			let result = await response.json()
 			//console.log(result)
@@ -65,6 +71,7 @@
 
 	async function exibe_tabela_usuario(usuarios) {
 		const tbody = document.querySelector('#tbody')
+		tbody.innerHTML = ''
 
 		usuarios.forEach(usuario => {
 			let tr = document.createElement('tr')
@@ -78,7 +85,7 @@
 			let acao = document.createElement('td')
 
 			let botao = document.createElement('button')
-	
+
 			if (usuario.ativo == 1) {
 				//botao.textContent = 'Ação'
 				botao.classList.add('btn', 'btn-danger')
@@ -95,7 +102,24 @@
 							body: data
 						})
 						let result = await response.json()
-						console.log(result)
+						let alert = document.querySelector('#alert')
+
+						if (result.status == 'success') {
+							alert.textContent = result.message
+							alert.classList.remove('alert-danger', 'd-none')
+							alert.classList.add('alert-success')
+							setTimeout(() => {
+								alert.classList.add('d-none')
+							}, 5000);
+						} else {
+							alert.textContent = result.message
+							alert.classList.remove('alert-success', 'd-none')
+							alert.classList.add('alert-danger')
+							setTimeout(() => {
+								alert.classList.add('d-none')
+							}, 5000);
+						}
+						lista_dados_usuarios()
 
 					} catch (error) {
 						console.log(error)
@@ -119,7 +143,24 @@
 							body: data
 						})
 						let result = await response.json()
-						console.log(result)
+						let alert = document.querySelector('#alert')
+
+						if (result.status == 'success') {
+							alert.textContent = result.message
+							alert.classList.remove('alert-danger', 'd-none')
+							alert.classList.add('alert-success')
+							setTimeout(() => {
+								alert.classList.add('d-none')
+							}, 5000);
+						} else {
+							alert.textContent = result.message
+							alert.classList.remove('alert-success', 'd-none')
+							alert.classList.add('alert-danger')
+							setTimeout(() => {
+								alert.classList.add('d-none')
+							}, 5000);
+						}
+						lista_dados_usuarios()
 
 					} catch (error) {
 						console.log(error)
@@ -135,4 +176,35 @@
 			tbody.append(tr)
 		});
 	}
+
+	document.querySelector('#cadastrar').addEventListener('click', () => {
+		document.querySelector('#lista').classList.add('d-none')
+		document.querySelector('#cadastro').classList.remove('d-none')
+	})
+
+	document.querySelector('#voltar').addEventListener('click', () => {
+		document.querySelector('#lista').classList.remove('d-none')
+		document.querySelector('#cadastro').classList.add('d-none')
+	})
+
+
+	const usuario = document.querySelector('#usuario')
+	const salvar = document.querySelector('#salvar')
+
+	usuario.addEventListener('keyup', () => {
+		usuario.value = usuario.value.trim()
+
+		if (usuario.value.length > 3 && usuario.value.length < 21) {
+			salvar.disabled = false;
+		} else {
+			salvar.disabled = true;
+		}
+	})
+
+	document.querySelector('#salvar').addEventListener('click', async () => {
+
+		const data = new FormData();
+		data.append('usuario', usuario.value);
+
+	})
 </script>
