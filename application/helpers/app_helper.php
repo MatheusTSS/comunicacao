@@ -79,7 +79,7 @@ if (!function_exists('get_flash_messages')) {
         if (!empty($flash_messages)) {
             foreach ($flash_messages as $type => $messages) {
                 foreach ($messages as $message) {
-                    echo '<div class="alert alert-' . $type . '">' . $message . '</div>';
+                    echo '<div class="alert alert-' . $type . ' mt-2">' . $message . '</div>';
                 }
             }
         }
@@ -100,5 +100,18 @@ if (!function_exists('get_flash_messages')) {
     na view 
     <?php get_flash_messages()?>
 */
+
+// ################################################################################################################################
+
+// RESPOSTA A REQUISIÇÕES AJAX
+if (!function_exists('resposta_json')) {
+    function resposta_json($status, $message, $data = [])
+    {
+        $resposta['status'] = $status;
+        $resposta['message'] = $message;
+        $resposta['data'] = $data;
+        echo json_encode($resposta);
+    }
+}
 
 // ################################################################################################################################

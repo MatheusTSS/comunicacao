@@ -6,7 +6,7 @@
 					<div class="sb-nav-link-icon"><i class="fas fa-list"></i></div>
 					Relatórios
 				</a>
-				<a class="nav-link" href="index.html">
+				<a class="nav-link" href="<?= base_url('usuario/view_usuarios')?>">
 					<div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
 					Usuários
 				</a>

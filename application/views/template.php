@@ -15,6 +15,7 @@
 			<main>
 				<div class="container-fluid px-4">
 
+					<?php get_flash_messages()?>
 					<?php $this->load->view($tela) ?>
 					
 				</div>
