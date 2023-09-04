@@ -205,6 +205,42 @@
 
 		const data = new FormData();
 		data.append('usuario', usuario.value);
+		let alert = document.querySelector('#alert')
+
+		try {
+			let response = await fetch(base_url + 'usuario/cadastra_usuario', {
+				method: 'POST',
+				body: data
+			})
+			let result = await response.json()
+
+			if (result.status == 'success') {
+				lista_dados_usuarios()
+				document.querySelector('#lista').classList.remove('d-none')
+				document.querySelector('#cadastro').classList.add('d-none')
+				alert.textContent = result.message
+				alert.classList.remove('alert-danger', 'd-none')
+				alert.classList.add('alert-success')
+				setTimeout(() => {
+					alert.classList.add('d-none')
+				}, 5000);
+			} else {
+				alert.textContent = result.message
+				alert.classList.remove('alert-success', 'd-none')
+				alert.classList.add('alert-danger')
+				setTimeout(() => {
+					alert.classList.add('d-none')
+				}, 5000);
+			}
+
+		} catch (error) {
+			alert.textContent = 'Ocorreu um erro do lado do servidor, Tente novamente!'
+			alert.classList.remove('alert-success', 'd-none')
+			alert.classList.add('alert-danger')
+			setTimeout(() => {
+				alert.classList.add('d-none')
+			}, 5000);
+		}
 
 	})
 </script>

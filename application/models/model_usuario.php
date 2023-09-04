@@ -13,7 +13,7 @@ class Model_usuario extends CI_Model
 
 	function busca_dados_usuarios()
 	{
-		$sql = "SELECT id, usuario, ativo FROM usuarios";
+		$sql = "SELECT id, usuario, ativo FROM usuarios ORDER BY ativo DESC";
 
 		$query = $this->db->query($sql);
 
@@ -45,6 +45,30 @@ class Model_usuario extends CI_Model
 		$this->db->where('id', $id);
 		$this->db->update('usuarios');
 
+		$this->db->trans_complete();
+
+		if ($this->db->trans_status() === FALSE) {
+			return false;
+		}
+		return true;
+	}
+
+	function busca_dados_usuario($usuario)
+	{
+		$sql = "SELECT * FROM usuarios WHERE usuario = ?";
+		
+		$query = $this->db->query($sql, array($usuario));
+
+		if ($query->num_rows() > 0) {
+			return true;
+		}
+		return false;
+	}
+
+	function cadastra_usuario($dados)
+	{
+		$this->db->trans_start();
+		$this->db->insert('usuarios', $dados);
 		$this->db->trans_complete();
 
 		if ($this->db->trans_status() === FALSE) {

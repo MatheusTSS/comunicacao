@@ -1,9 +1,11 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class Usuario extends CI_Controller {
+class Usuario extends CI_Controller
+{
 
-	public function __construct(){
+	public function __construct()
+	{
 		parent::__construct();
 
 		if (!$this->session->userdata('usuario')) {
@@ -12,7 +14,8 @@ class Usuario extends CI_Controller {
 		$this->load->model('model_usuario');
 	}
 
-	public function index(){
+	public function index()
+	{
 		template();
 	}
 
@@ -96,6 +99,30 @@ class Usuario extends CI_Controller {
 			resposta_json('success', 'Usuário ativado com sucesso!');
 		} else {
 			resposta_json('error', 'Erro ao ativar usuário!');
+		}
+	}
+
+	public function cadastra_usuario()
+	{
+		// verificar se post existe e se não esta vazio
+		if (!isset($_POST) || empty($_POST)) {
+			return redirect('usuario');
+		}
+
+		$dados['usuario'] = $this->input->post('usuario');
+		$dados['senha'] = password_hash('Abc@123', PASSWORD_DEFAULT);
+
+		$existe = $this->model_usuario->busca_dados_usuario($dados['usuario']);
+
+		if ($existe) {
+			resposta_json('error', 'Usuário já cadastrado!');
+		} else {
+			$sucesso = $this->model_usuario->cadastra_usuario($dados);
+			if ($sucesso) {
+				resposta_json('success', 'Usuário cadastrado com sucesso!');
+			} else {
+				resposta_json('error', 'Erro ao cadastrar usuário!');
+			}
 		}
 	}
 }

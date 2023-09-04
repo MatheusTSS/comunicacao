@@ -4,7 +4,7 @@
 			<div class="nav">
 				<a class="nav-link" href="index.html">
 					<div class="sb-nav-link-icon"><i class="fas fa-list"></i></div>
-					Relatórios
+					Comunicados
 				</a>
 				<a class="nav-link" href="<?= base_url('usuario/view_usuarios')?>">
 					<div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
@@ -15,7 +15,7 @@
 		</div>
 		<div class="sb-sidenav-footer">
 			<div class="small">Logado como:</div>
-			Start Bootstrap
+			<?= $_SESSION['usuario']['usuario']?>
 		</div>
 	</nav>
 </div>
