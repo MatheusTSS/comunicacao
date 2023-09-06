@@ -27,12 +27,26 @@ class Comunicado extends CI_Controller
 
 	public function cadastra_comunicado()
 	{
-		imprime([$_POST, $_FILES]);
+		// verificar se post existe e se não esta vazio
+		if (!isset($_POST) || empty($_POST)) {
+			return redirect('usuario');
+		}
+
+		$dados_usuario = $this->session->userdata('usuario');
+
+		$sequencia = $this->model_comunicado->busca_sequencia();
+
+		$comunicado['usuario_id'] = $dados_usuario['id'];
+		$comunicado['titulo'] = $this->input->post('titulo');
+		$comunicado['descricao'] = $this->input->post('descricao');
+		$comunicado['link'] = $this->input->post('link');
+		$comunicado['sequencia'] = $sequencia === false ? 1 : ++$sequencia;
+
+		imprime([$_POST, $_FILES, $comunicado, $sequencia]);
 	}
 
 	public function view_lista_comunicados()
 	{
 		imprime(['public function view_lista_comunicados()']);
 	}
-
 }
