@@ -16,12 +16,12 @@
 
 			<div class="row g-1 mb-3">
 				<label for="link" class="form-label">Link</label>
-				<input type="text" class="form-control" placeholder="Adicione um link aqui (opcional)" id="link" name="link" maxlength="255" required>
+				<input type="text" class="form-control" placeholder="Adicione um link aqui (opcional)" id="link" name="link" maxlength="255">
 			</div>
 
 			<div class="row g-1 mb-3">
 				<label for="imagem" class="form-label"><span class="text-danger">* </span>Imagem</label>
-				<input type="file" class="form-control" id="imagem" name="imagem" required>
+				<input type="file" class="form-control" id="imagem" name="imagem[]" required>
 			</div>
 
 			<div class="d-flex justify-content-end">
@@ -97,6 +97,7 @@
 			if (extensao.toLowerCase() == '.png' || extensao.toLowerCase() == '.jpg' || extensao.toLowerCase() == '.jpeg') {
 				return true
 			} else {
+				imagem.value = ''
 				return false
 			}
 		}

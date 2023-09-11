@@ -40,9 +40,31 @@ class Comunicado extends CI_Controller
 		$comunicado['titulo'] = $this->input->post('titulo');
 		$comunicado['descricao'] = $this->input->post('descricao');
 		$comunicado['link'] = $this->input->post('link');
-		$comunicado['sequencia'] = $sequencia === false ? 1 : ++$sequencia;
+		$comunicado['sequencia'] = $sequencia === false ? 1 : ++$sequencia['sequencia'];
+		
+		$this->model_comunicado->trans_start();
 
-		imprime([$_POST, $_FILES, $comunicado, $sequencia]);
+		// cadastrar comunicado
+		$comunicado_id = $this->model_comunicado->cadastra_comunicado($comunicado);
+		
+		// fazer upload
+		$path = $_FILES['imagem']['name'][0];
+		$nome_comunicado = $comunicado_id.'.'. pathinfo($path, PATHINFO_EXTENSION);
+		$_FILES['imagem']['name'][0] = $nome_comunicado;
+		$upload = upload_multiple_files('uploads/', $_FILES['imagem']);
+
+		// atualizar diretorio na tabela comunicados
+		$this->model_comunicado->atualiza_diretorio($comunicado_id, "uploads/$nome_comunicado");
+
+		$sucesso = $this->model_comunicado->trans_complete();
+
+		if ($sucesso) {
+			add_flash_message('success', 'Comunicado cadastrado com sucesso!');
+			return redirect('comunicado/view_lista_comunicados');
+		} else {
+			add_flash_message('danger', 'Erro ao cadastrar comunicado!');
+			return redirect('comunicado/view_cadastra_comunicado');
+		}
 	}
 
 	public function view_lista_comunicados()

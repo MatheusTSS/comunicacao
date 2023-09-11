@@ -115,3 +115,44 @@ if (!function_exists('resposta_json')) {
 }
 
 // ################################################################################################################################
+
+// UPLOAD DE ARQUIVOS
+if (!function_exists('upload_multiple_files')) {
+    function upload_multiple_files($path, $userfile)
+    {
+        $ci = get_instance();
+        $status = true; // Variável para rastrear o status do upload
+
+        if (!is_dir($path)) {
+            mkdir($path, 0777, TRUE);
+        }
+
+        $cont = count($userfile['name']); // Pega quantos arquivos foram enviados
+
+        $upload_config = array(
+            'upload_path' => $path,
+            'allowed_types' => 'jpg|jpeg|png',
+            'max_size' => 1024 * 1024 * 4 // 4MB
+        );
+
+        for ($i = 0; $i < $cont; $i++) {
+            if (!is_null($userfile['name'][$i]) && $userfile['name'][$i] != '') {
+                $_FILES['arquivo']['name']     = $userfile['name'][$i];
+                $_FILES['arquivo']['type']     = $userfile['type'][$i];
+                $_FILES['arquivo']['tmp_name'] = $userfile['tmp_name'][$i];
+                $_FILES['arquivo']['error']    = $userfile['error'][$i];
+                $_FILES['arquivo']['size']     = $userfile['size'][$i];
+
+                if (!empty($_FILES['arquivo'])) {
+                    $ci->load->library('upload', $upload_config);
+                    if (!$ci->upload->do_upload('arquivo')) {
+                        $status = false; // Se um upload falhar, muda o status para false
+                    }
+                }
+            }
+        }
+        return $status; // Retorna o status final do upload
+    }
+}
+
+// ################################################################################################################################
