@@ -69,6 +69,17 @@ class Comunicado extends CI_Controller
 
 	public function view_lista_comunicados()
 	{
-		imprime(['public function view_lista_comunicados()']);
+		$dados['tela'] = 'comunicados/view_lista_comunicados';
+		template($dados);
+	}
+
+	public function lista_comunicados()
+	{
+		$dados = $this->model_comunicado->busca_comunicados();
+		if (!$dados) {
+			resposta_json('error', 'Não há comunicados cadastrados.');
+		} else {
+			resposta_json('success', 'Dados retornados com sucesso.', $dados);
+		}
 	}
 }

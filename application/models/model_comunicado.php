@@ -46,4 +46,16 @@ class Model_comunicado extends CI_Model
 		$this->db->update('comunicados');
 	}
 
+	function busca_comunicados()
+	{
+		$sql = "SELECT * FROM comunicados ORDER BY sequencia ASC";
+
+		$query = $this->db->query($sql);
+
+		if ($query->num_rows() > 0) {
+			return $query->result_array();
+		}
+		return false;
+	}
+
 }
