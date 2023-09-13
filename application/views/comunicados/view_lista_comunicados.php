@@ -1,5 +1,4 @@
-<div class="container mt-5">
-	<h3 class="mt-3 mb-3">Listagem de Comunicados</h3>
+<div class="mt-5">
 	<div id="comunicados"></div>
 </div>
 
@@ -27,7 +26,17 @@
 		let comunicado = ''
 
 		for (let i = 0; i < comunicados.length; i++) {
-			//console.log(comunicados[i])
+
+			let sequencia_up = '<button disabled class="btn btn-primary w-100"><i class="fa-solid fa-arrow-up-1-9"></i></i></button>'	
+			if (i !== 0) {
+				sequencia_up = `<button class="btn btn-primary w-100" onclick="altera_sequencia_up(${comunicados[i].id})" ><i class="fa-solid fa-arrow-up-1-9"></i></i></button>`
+			}
+
+			let sequencia_down = '<button disabled class="btn btn-success mt-auto w-100"><i class="fa-solid fa-arrow-down-1-9"></i></i></button>'
+			if ((comunicados.length - 1) !== i) {
+				sequencia_down = `<button class="btn btn-success mt-auto w-100" onclick="altera_sequencia_down(${comunicados[i].id})"><i class="fa-solid fa-arrow-down-1-9"></i></i></button>`
+			} 
+
 			comunicado += 
 			`
 			<div class="m-3">
@@ -37,16 +46,16 @@
 					</div>
 
 					<div class="align-items-start m-1 border" style="width: 90%; border-radius: 10px;">
-						<span class="ms-2" style="font-size: 35px; font-weight: 500;">${comunicados[i].titulo}</span>
+						<span class="ms-2" style="font-size: 30px; font-weight: 500;">${comunicados[i].titulo}</span>
 						<span class="me-2" style="float: right; font-size: 35px; font-weight: 500;">${comunicados[i].sequencia}</span>
-						<br><br>
-						<a class="ms-2" href="${comunicados[i].link}" target="_blank" rel="noopener noreferrer">Link</a>
+						<br><br><br>
+						<a class="ms-2" style="font-size: 18px;" href="${comunicados[i].link}" target="_blank" rel="noopener noreferrer">Link</a>
 					</div>
 					
 					<div class="d-flex flex-column align-items-end m-1">
-						<button class="btn btn-primary w-100"><i class="fa-solid fa-arrow-up-1-9"></i></i></button>
+						${sequencia_up}
 						<button class="btn btn-secondary mt-auto w-100"><i class="fa-solid fa-eye"></i></button>
-						<button class="btn btn-success mt-auto w-100"><i class="fa-solid fa-arrow-down-1-9"></i></i></button>
+						${sequencia_down}
 					</div>
 				</div>
 			</div>
@@ -54,5 +63,44 @@
 		}
 		//console.log(comunicado);
 		document.querySelector('#comunicados').innerHTML = comunicado
+	}
+
+	async function altera_sequencia_up(comunicado_id)
+	{
+		const data = new FormData();
+		data.append('comunicado_id', comunicado_id);
+
+		try {
+			let response = await fetch(base_url + 'comunicado/altera_sequencia_up', {
+				method: 'POST',
+				body: data
+			})
+			let result = await response.json()
+			lista_comunicados()
+			
+		} catch (error) {
+			console.log(error)
+			
+		}
+	}
+
+	async function altera_sequencia_down(comunicado_id)
+	{
+		const data = new FormData();
+		data.append('comunicado_id', comunicado_id);
+
+		try {
+			let response = await fetch(base_url + 'comunicado/altera_sequencia_down', {
+				method: 'POST',
+				body: data
+			})
+			let result = await response.json()
+			lista_comunicados()
+			
+		} catch (error) {
+			console.log(error)
+			
+		}
+
 	}
 </script>

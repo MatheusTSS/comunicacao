@@ -48,7 +48,9 @@ class Model_comunicado extends CI_Model
 
 	function busca_comunicados()
 	{
-		$sql = "SELECT * FROM comunicados ORDER BY sequencia ASC";
+		$sql = "SELECT * FROM comunicados 
+				WHERE ativo = 1
+				ORDER BY sequencia ASC";
 
 		$query = $this->db->query($sql);
 
@@ -56,6 +58,37 @@ class Model_comunicado extends CI_Model
 			return $query->result_array();
 		}
 		return false;
+	}
+
+	function busca_dados_comunicado($id)
+	{
+		$sql = "SELECT * FROM comunicados WHERE id = ?";
+		
+		$query = $this->db->query($sql, array($id));
+
+		if ($query->num_rows() > 0) {
+			return $query->row_array();
+		}
+		return false;
+	}
+
+	function busca_dados_comunicado_sequencia($sequencia)
+	{
+		$sql = "SELECT * FROM comunicados WHERE sequencia = ?";
+		
+		$query = $this->db->query($sql, array($sequencia));
+
+		if ($query->num_rows() > 0) {
+			return $query->row_array();
+		}
+		return false;
+	}
+
+	function altera_sequencia($id, $sequencia)
+	{
+		$this->db->set('sequencia', $sequencia);
+		$this->db->where('id', $id);
+		$this->db->update('comunicados');
 	}
 
 }
