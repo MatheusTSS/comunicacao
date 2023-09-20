@@ -91,4 +91,20 @@ class Model_comunicado extends CI_Model
 		$this->db->update('comunicados');
 	}
 
+	function edita_comunicado($id, $titulo, $descricao, $link)
+	{
+		$this->db->set('titulo', $titulo);
+		$this->db->set('descricao', $descricao);
+		$this->db->set('link', $link);
+		$this->db->where('id', $id);
+		$this->db->update('comunicados');
+	}
+
+	function remove_comunicado($id)
+	{
+		$this->db->set('ativo', 0);
+		$this->db->where('id', $id);
+		$this->db->update('comunicados');
+	}
+
 }

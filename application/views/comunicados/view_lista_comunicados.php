@@ -54,7 +54,7 @@
 					
 					<div class="d-flex flex-column align-items-end m-1">
 						${sequencia_up}
-						<button class="btn btn-secondary mt-auto w-100"><i class="fa-solid fa-eye"></i></button>
+						<a class="btn btn-secondary mt-auto w-100" href="${base_url+'comunicado/view_exibe_comunicado/'+comunicados[i].id}" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-eye"></i></a>
 						${sequencia_down}
 					</div>
 				</div>

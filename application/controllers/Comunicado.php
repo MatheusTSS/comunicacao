@@ -138,4 +138,39 @@ class Comunicado extends CI_Controller
 			}
 		}
 	}
+
+	public function view_exibe_comunicado($comunicado_id)
+	{
+		$dados['comunicado'] = $this->model_comunicado->busca_dados_comunicado($comunicado_id);
+		$this->load->view('comunicados/view_exibe_comunicado', $dados);
+	}
+
+	public function edita_comunicado()
+	{
+		// verificar se post existe e se não esta vazio
+		if (!isset($_POST) || empty($_POST)) {
+			return redirect('usuario');
+		} else {
+			$comunicado_id = $this->input->post('comunicado_id');
+			$titulo = $this->input->post('titulo');
+			$descricao = $this->input->post('descricao');
+			$link = $this->input->post('link');
+
+			$this->model_comunicado->edita_comunicado($comunicado_id, $titulo, $descricao, $link);
+			resposta_json('success', 'Sucesso ao editar comunicado.');
+		}
+	}
+
+	public function remove_comunicado()
+	{
+		// verificar se post existe e se não esta vazio
+		if (!isset($_POST) || empty($_POST)) {
+			return redirect('usuario');
+		} else {
+			$comunicado_id = $this->input->post('comunicado_id');
+
+			$this->model_comunicado->remove_comunicado($comunicado_id);
+			resposta_json('success', 'Sucesso ao remover comunicado.');
+		}
+	}
 }

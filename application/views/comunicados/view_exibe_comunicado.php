@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<?php $this->load->view('_layout/header') ?>
+
+<body>
+
+	<div class="m-2 container-fluid">
+		<div class="row">
+			<!-- Coluna 1: Imagem (50% da largura) -->
+			<div class="col-md-7" style="background-color: #f0f0f0;">
+				<!-- Conteúdo da coluna 1 (Sua imagem aqui) -->
+				<img src="<?= base_url($comunicado['diretorio'])?>" alt="Imagem" style="width: auto; height: 90vh;">
+			</div>
+
+			<!-- Coluna 2: Formulário (40% da largura) -->
+			<div class="col-md-4" style="background-color: #e0e0e0;">
+				<!-- Conteúdo da coluna 2 -->
+				<form>
+					<div class="mb-3">
+						<label for="titulo" class="form-label">Título</label>
+						<input type="text" class="form-control" id="titulo" disabled value="<?= $comunicado['titulo'] ?>">
+					</div>
+					<div class="mb-3">
+						<label for="descricao" class="form-label">Descrição</label>
+						<textarea class="form-control" id="descricao" disabled rows="4"><?= $comunicado['descricao'] ?></textarea>
+					</div>
+					<div class="mb-3">
+						<label for="link" class="form-label">Link</label>
+						<input type="text" class="form-control" id="link" disabled value="<?= $comunicado['link'] ?>">
+					</div>
+				</form>
+			</div>
+
+			<!-- Coluna 3: Botões (10% da largura) -->
+			<div class="col-md-1" style="background-color: #c0c0c0;">
+				<!-- Conteúdo da coluna 3 -->
+				<div class="d-flex flex-column justify-content-center align-items-center" style="height: 100%;">
+					<button id="fechar" class="btn btn-danger mt-2 mb-2">Fechar</button>
+					<button id="editar" class="btn btn-primary m-1">Editar</button>
+					<button id="salvar" disabled class="btn btn-success m-1">Salvar</button>
+					<button id="remover" class="btn btn-danger m-1">Remover</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</body>
+
+</html>
+<script>
+
+	const comunicado_id = '<?= $comunicado['id'] ?>'
+	const base_url = '<?= base_url() ?>'
+
+	document.querySelector('#fechar').addEventListener('click', () => {
+		window.close()
+	})
+
+	document.querySelector('#editar').addEventListener('click', () => {
+		document.querySelector('#titulo').disabled = false
+		document.querySelector('#descricao').disabled = false
+		document.querySelector('#link').disabled = false
+		valida_dados()
+	})
+
+	document.querySelector('#salvar').addEventListener('click', () => {
+		document.querySelector('#titulo').disabled = true
+		document.querySelector('#descricao').disabled = true
+		document.querySelector('#link').disabled = true
+		edita_comunicado()
+	})
+
+	document.querySelector('#remover').addEventListener('click', () => {
+		remove_comunicado()
+	})
+	
+	async function remove_comunicado()
+	{
+		const data = new FormData();
+		data.append('comunicado_id', comunicado_id);
+
+		try {
+			let response = await fetch(base_url + 'comunicado/remove_comunicado', {
+				method: 'POST',
+				body: data
+			})
+			let result = await response.json()
+			if (result.status === 'success') {
+				window.close()
+			}
+		} catch (error) {
+			console.log(error)
+		}
+	}
+
+	async function edita_comunicado()
+	{
+		const data = new FormData();
+		data.append('comunicado_id', comunicado_id);
+		data.append('titulo', document.querySelector('#titulo').value);
+		data.append('descricao', document.querySelector('#descricao').value);
+		data.append('link', document.querySelector('#link').value);
+
+		try {
+			let response = await fetch(base_url + 'comunicado/edita_comunicado', {
+				method: 'POST',
+				body: data
+			})
+			let result = await response.json()
+			console.log(result)
+		} catch (error) {
+			console.log(error)
+		}
+	}
+
+	const titulo = document.querySelector('#titulo')
+	const link = document.querySelector('#link')
+	const salvar = document.querySelector('#salvar')
+
+	titulo.addEventListener('change', () => {
+		valida_dados()
+	})
+
+	link.addEventListener('change', () => {
+		valida_link()
+	})
+
+	function valida_dados() {
+		if (valida_titulo()) {
+			salvar.disabled = false;
+		} else {
+			salvar.disabled = true;
+		}
+	}
+
+	function valida_titulo() {
+		titulo.value = titulo.value.trim()
+
+		if (titulo.value.length > 0 && titulo.value.length < 101) {
+			return true
+		} else {
+			return false
+		}
+	}
+
+	function valida_link() {
+		if (link.value) {
+			try {
+				let url = new URL(link.value)
+				return true
+			} catch (err) {
+				link.value = ''
+				return false
+			}
+		}
+		return false
+	}
+
+	
+</script>

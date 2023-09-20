@@ -43,7 +43,7 @@
 	})
 
 	link.addEventListener('change', () => {
-		valida_dados()
+		valida_link()
 	})
 
 	imagem.addEventListener('input', () => {
@@ -51,7 +51,7 @@
 	})
 
 	function valida_dados() {
-		if (valida_titulo() && valida_imagem() && valida_link()) {
+		if (valida_titulo() && valida_imagem()) {
 			salvar.disabled = false;
 		} else {
 			salvar.disabled = true;
@@ -75,9 +75,10 @@
 				return true
 			} catch (err) {
 				link.value = ''
+				return false
 			}
 		}
-		return true
+		return false
 	}
 
 	function valida_imagem() {
