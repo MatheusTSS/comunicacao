@@ -19,7 +19,7 @@ class Model_comunicado extends CI_Model
 
 	function busca_sequencia()
 	{
-		$sql = "SELECT sequencia 
+		$sql = "SELECT id, sequencia 
 				FROM comunicados 
 				WHERE ativo = 1 
 				ORDER BY sequencia DESC 
@@ -91,6 +91,13 @@ class Model_comunicado extends CI_Model
 		$this->db->update('comunicados');
 	}
 
+	function remove_altera_sequencia($sequencia_atual, $nova_sequencia)
+	{
+		$this->db->set('sequencia', $nova_sequencia);
+		$this->db->where('sequencia', $sequencia_atual);
+		$this->db->update('comunicados');
+	}
+
 	function edita_comunicado($id, $titulo, $descricao, $link)
 	{
 		$this->db->set('titulo', $titulo);
@@ -103,6 +110,7 @@ class Model_comunicado extends CI_Model
 	function remove_comunicado($id)
 	{
 		$this->db->set('ativo', 0);
+		$this->db->set('sequencia', 0);
 		$this->db->where('id', $id);
 		$this->db->update('comunicados');
 	}

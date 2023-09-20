@@ -168,9 +168,24 @@ class Comunicado extends CI_Controller
 			return redirect('usuario');
 		} else {
 			$comunicado_id = $this->input->post('comunicado_id');
+			$sequencia = $this->input->post('sequencia');
+			$sequencia_db = $this->model_comunicado->busca_sequencia();
 
-			$this->model_comunicado->remove_comunicado($comunicado_id);
-			resposta_json('success', 'Sucesso ao remover comunicado.');
+			$this->model_comunicado->trans_start();
+			if ($sequencia === $sequencia_db['sequencia']) {
+				$this->model_comunicado->remove_comunicado($comunicado_id);
+			} else {
+				$this->model_comunicado->remove_comunicado($comunicado_id);
+				for ($i=$sequencia; $i <= $sequencia_db['sequencia']; $i++) {
+					$nova_sequencia = $i;
+					$this->model_comunicado->remove_altera_sequencia($i, --$nova_sequencia);
+				}
+			}
+			$sucesso = $this->model_comunicado->trans_complete();
+			
+
+			//$this->model_comunicado->remove_comunicado($comunicado_id);
+			resposta_json('success', 'Sucesso ao remover comunicado.', $sucesso);
 		}
 	}
 }

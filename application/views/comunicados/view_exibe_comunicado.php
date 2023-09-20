@@ -10,7 +10,7 @@
 			<!-- Coluna 1: Imagem (50% da largura) -->
 			<div class="col-md-7" style="background-color: #f0f0f0;">
 				<!-- Conteúdo da coluna 1 (Sua imagem aqui) -->
-				<img src="<?= base_url($comunicado['diretorio'])?>" alt="Imagem" style="width: auto; height: 90vh;">
+				<img src="<?= base_url($comunicado['diretorio']) ?>" alt="Imagem" style="width: auto; height: 90vh;">
 			</div>
 
 			<!-- Coluna 2: Formulário (40% da largura) -->
@@ -35,23 +35,55 @@
 			<!-- Coluna 3: Botões (10% da largura) -->
 			<div class="col-md-1" style="background-color: #c0c0c0;">
 				<!-- Conteúdo da coluna 3 -->
-				<div class="d-flex flex-column justify-content-center align-items-center" style="height: 100%;">
-					<button id="fechar" class="btn btn-danger mt-2 mb-2">Fechar</button>
+				<div class="d-flex flex-column justify-content-start align-items-center" style="height: 100%;">
+					<button id="fechar" class="btn btn-danger m-1">Fechar</button>
+					<div style="margin-top: 35vh;"></div>
 					<button id="editar" class="btn btn-primary m-1">Editar</button>
-					<button id="salvar" disabled class="btn btn-success m-1">Salvar</button>
-					<button id="remover" class="btn btn-danger m-1">Remover</button>
+					<button id="salvar" disabled class="btn btn-success m-1 d-none">Salvar</button>
+
+					<!-- Button trigger modal -->
+					<button id="modal_remover" type="button" class="btn btn-danger m-1" data-bs-toggle="modal" data-bs-target="#exampleModal">
+						Remover
+					</button>
+
+					<!-- Modal -->
+					<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h1 class="modal-title fs-5" id="exampleModalLabel">Remover Comunicado</h1>
+									<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+								</div>
+								<div class="modal-body">
+									<span>Deseja realmente remover este comunicado?</span>
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-danger" data-bs-dismiss="modal">Não</button>
+									<button id="remover" type="button" class="btn btn-success">Sim</button>
+								</div>
+							</div>
+						</div>
+					</div>
+
 				</div>
 			</div>
 		</div>
 	</div>
 
+	<?php $this->load->view('_layout/scripts') ?>
+
 </body>
 
 </html>
-<script>
 
+<script>
 	const comunicado_id = '<?= $comunicado['id'] ?>'
+	const sequencia = '<?= $comunicado['sequencia'] ?>'
 	const base_url = '<?= base_url() ?>'
+
+	if (sequencia == 0) {
+		window.close()
+	}
 
 	document.querySelector('#fechar').addEventListener('click', () => {
 		window.close()
@@ -61,6 +93,9 @@
 		document.querySelector('#titulo').disabled = false
 		document.querySelector('#descricao').disabled = false
 		document.querySelector('#link').disabled = false
+		document.querySelector('#salvar').classList.remove('d-none')
+		document.querySelector('#editar').classList.add('d-none')
+		document.querySelector('#modal_remover').classList.add('d-none')
 		valida_dados()
 	})
 
@@ -68,17 +103,20 @@
 		document.querySelector('#titulo').disabled = true
 		document.querySelector('#descricao').disabled = true
 		document.querySelector('#link').disabled = true
+		document.querySelector('#salvar').classList.add('d-none')
+		document.querySelector('#editar').classList.remove('d-none')
+		document.querySelector('#modal_remover').classList.remove('d-none')
 		edita_comunicado()
 	})
 
 	document.querySelector('#remover').addEventListener('click', () => {
 		remove_comunicado()
 	})
-	
-	async function remove_comunicado()
-	{
+
+	async function remove_comunicado() {
 		const data = new FormData();
 		data.append('comunicado_id', comunicado_id);
+		data.append('sequencia', sequencia);
 
 		try {
 			let response = await fetch(base_url + 'comunicado/remove_comunicado', {
@@ -94,8 +132,7 @@
 		}
 	}
 
-	async function edita_comunicado()
-	{
+	async function edita_comunicado() {
 		const data = new FormData();
 		data.append('comunicado_id', comunicado_id);
 		data.append('titulo', document.querySelector('#titulo').value);
@@ -156,6 +193,4 @@
 		}
 		return false
 	}
-
-	
 </script>
