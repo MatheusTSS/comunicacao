@@ -1,101 +1,77 @@
-<?php
-defined('BASEPATH') OR exit('No direct script access allowed');
-?><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
-<head>
-	<meta charset="utf-8">
-	<title>Welcome to CodeIgniter</title>
 
-	<style type="text/css">
+<?php $this->load->view('_layout/header') ?>
 
-	::selection { background-color: #E13300; color: white; }
-	::-moz-selection { background-color: #E13300; color: white; }
-
-	body {
-		background-color: #fff;
-		margin: 40px;
-		font: 13px/20px normal Helvetica, Arial, sans-serif;
-		color: #4F5155;
-	}
-
-	a {
-		color: #003399;
-		background-color: transparent;
-		font-weight: normal;
-		text-decoration: none;
-	}
-
-	a:hover {
-		color: #97310e;
-	}
-
-	h1 {
-		color: #444;
-		background-color: transparent;
-		border-bottom: 1px solid #D0D0D0;
-		font-size: 19px;
-		font-weight: normal;
-		margin: 0 0 14px 0;
-		padding: 14px 15px 10px 15px;
-	}
-
-	code {
-		font-family: Consolas, Monaco, Courier New, Courier, monospace;
-		font-size: 12px;
-		background-color: #f9f9f9;
-		border: 1px solid #D0D0D0;
-		color: #002166;
-		display: block;
-		margin: 14px 0 14px 0;
-		padding: 12px 10px 12px 10px;
-	}
-
-	#body {
-		margin: 0 15px 0 15px;
-		min-height: 96px;
-	}
-
-	p {
-		margin: 0 0 10px;
-		padding:0;
-	}
-
-	p.footer {
-		text-align: right;
-		font-size: 11px;
-		border-top: 1px solid #D0D0D0;
-		line-height: 32px;
-		padding: 0 10px 0 10px;
-		margin: 20px 0 0 0;
-	}
-
-	#container {
-		margin: 10px;
-		border: 1px solid #D0D0D0;
-		box-shadow: 0 0 8px #D0D0D0;
-	}
-	</style>
-</head>
 <body>
-
-<div id="container">
-	<h1>Home</h1>
-
-	<div id="body">
-
-		<p>The page you are looking at is being generated dynamically by CodeIgniter.</p>
-
-		<p>If you would like to edit this page you'll find it located at:</p>
-		<code>application/views/welcome_message.php</code>
-
-		<p>The corresponding controller for this page is found at:</p>
-		<code>application/controllers/Welcome.php</code>
-
-		<p>If you are exploring CodeIgniter for the very first time, you should start by reading the <a href="userguide3/">User Guide</a>.</p>
+	<div class="d-flex justify-content-end">
+		<a href="<?= base_url('login') ?>" target="_blank" rel="noopener noreferrer">Acesso Restrito</a>
 	</div>
 
-	<p class="footer">Page rendered in <strong>{elapsed_time}</strong> seconds. <?php echo  (ENVIRONMENT === 'development') ?  'CodeIgniter Version <strong>' . CI_VERSION . '</strong>' : '' ?></p>
-</div>
+	<div class="m-2 container-fluid">
+		<div class="row">
+			<!-- Coluna 1: Imagem (50% da largura) -->
+			<div class="col-md-8" style="background-color: #f0f0f0;">
+				<!-- Conteúdo da coluna 1 (Sua imagem aqui) -->
+				<img id="imagem" src="" alt="Imagem" style="width: auto; height: 85vh;">
+			</div>
+
+			<!-- Coluna 2: Formulário (40% da largura) -->
+			<div class="col-md-4" style="background-color: #e0e0e0;">
+				<!-- Conteúdo da coluna 2 -->
+				<form>
+					<div class="mb-3">
+						<label for="titulo" class="form-label">Título</label>
+						<input type="text" class="form-control" id="titulo" disabled value="">
+					</div>
+					<div class="mb-3">
+						<label for="descricao" class="form-label">Descrição</label>
+						<textarea class="form-control" id="descricao" disabled rows="4"></textarea>
+					</div>
+					<div class="mb-3">
+						<label for="link" class="form-label">Link</label>
+						<input type="text" class="form-control" id="link" disabled value="">
+					</div>
+				</form>
+			</div>
+		</div>
+		<div class="d-flex justify-content-between">
+			<button type="button" class="btn btn-primary m-1">'<-'</button>
+			<button type="button" class="btn btn-primary m-1">'->'</button>
+		</div>
+	</div>
+
+	<?php $this->load->view('_layout/scripts') ?>
 
 </body>
+
 </html>
+<script>
+	const base_url = '<?= base_url() ?>'
+	let comunicados = ''
+	window.onload = () => carrega_comunicados();
+
+	async function carrega_comunicados() {
+		try {
+			let response = await fetch(base_url + 'home/carrega_comunicados')
+			let result = await response.json()
+
+			if (result.status == 'success') {
+				comunicados = result.data
+				document.querySelector('#titulo').value = comunicados[0].titulo
+				document.querySelector('#descricao').value = comunicados[0].descricao
+				document.querySelector('#link').value = comunicados[0].link
+				document.querySelector('#imagem').src = base_url+comunicados[0].diretorio
+			} else {
+
+			}
+		} catch (error) {
+			console.log(error)
+		}
+	}
+	setTimeout(() => {
+		//console.log("Delayed for 1 second.");
+		console.log(comunicados)
+	}, "1000");
+
+</script>

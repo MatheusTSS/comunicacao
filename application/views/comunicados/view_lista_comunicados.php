@@ -26,7 +26,6 @@
 		let comunicado = ''
 
 		for (let i = 0; i < comunicados.length; i++) {
-
 			let sequencia_up = '<button disabled class="btn btn-primary w-100"><i class="fa-solid fa-arrow-up-1-9"></i></i></button>'	
 			if (i !== 0) {
 				sequencia_up = `<button class="btn btn-primary w-100" onclick="altera_sequencia_up(${comunicados[i].id})" ><i class="fa-solid fa-arrow-up-1-9"></i></i></button>`
@@ -54,7 +53,7 @@
 					
 					<div class="d-flex flex-column align-items-end m-1">
 						${sequencia_up}
-						<a class="btn btn-secondary mt-auto w-100" href="${base_url+'comunicado/view_exibe_comunicado/'+comunicados[i].id}" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-eye"></i></a>
+						<a class="btn btn-secondary mt-auto w-100" href="${base_url+'comunicado/view_exibe_comunicado/'+comunicados[i].id}" target="_self" rel="noopener noreferrer"><i class="fa-solid fa-eye"></i></a>
 						${sequencia_down}
 					</div>
 				</div>

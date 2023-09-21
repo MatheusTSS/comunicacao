@@ -81,12 +81,8 @@
 	const sequencia = '<?= $comunicado['sequencia'] ?>'
 	const base_url = '<?= base_url() ?>'
 
-	if (sequencia == 0) {
-		window.close()
-	}
-
 	document.querySelector('#fechar').addEventListener('click', () => {
-		window.close()
+		window.location.href = base_url+"comunicado/view_lista_comunicados";
 	})
 
 	document.querySelector('#editar').addEventListener('click', () => {
@@ -125,7 +121,7 @@
 			})
 			let result = await response.json()
 			if (result.status === 'success') {
-				window.close()
+				window.location.href = base_url+"comunicado/view_lista_comunicados";
 			}
 		} catch (error) {
 			console.log(error)

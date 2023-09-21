@@ -156,3 +156,29 @@ if (!function_exists('upload_multiple_files')) {
 }
 
 // ################################################################################################################################
+
+// ENCRYPT
+if (!function_exists('encode')) {
+
+    function encode($valor)
+    {
+        $CI = &get_instance();
+		$CI->load->library('encrypt');
+		$encrypted_string = $CI->encrypt->encode($valor);
+		return $encrypted_string; 
+    }
+}
+
+// DECRYPT
+if (!function_exists('decode')) {
+
+    function decode($valor)
+    {
+        $CI = &get_instance();
+		$CI->load->library('encrypt');
+		$decrypted_string = $CI->encrypt->decode($valor);
+		return $decrypted_string; 
+    }
+}
+
+//################################################################################################################################

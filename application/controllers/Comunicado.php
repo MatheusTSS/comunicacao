@@ -142,6 +142,9 @@ class Comunicado extends CI_Controller
 	public function view_exibe_comunicado($comunicado_id)
 	{
 		$dados['comunicado'] = $this->model_comunicado->busca_dados_comunicado($comunicado_id);
+		if ($dados['comunicado'] === false) {
+			return redirect('comunicado/view_lista_comunicados');
+		}
 		$this->load->view('comunicados/view_exibe_comunicado', $dados);
 	}
 
