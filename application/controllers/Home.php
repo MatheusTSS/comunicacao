@@ -13,10 +13,6 @@ class Home extends CI_Controller {
 	}
 
 	public function index(){
-	/* 	$dados = $this->model_comunicado->busca_comunicados();
-		if ($dados) {
-			$data['comunicados'] = json_encode($dados);
-		} */
 		$this->load->view('home');
 	}
 

@@ -36,8 +36,6 @@
 					</div>
 					<div class="mb-3">
 						<a id="link" href="#" target="_blank" rel="noopener noreferrer"></a>
-						<!-- <label for="link" class="form-label">Link</label>
-						<input type="text" class="form-control" id="link" disabled value=""></input> -->
 					</div>
 				</form>
 			</div>
