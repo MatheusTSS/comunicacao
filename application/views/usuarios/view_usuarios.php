@@ -1,5 +1,4 @@
 <div class="container mt-5">
-	<div id="alert" class="alert d-none" role="alert"></div>
 
 	<div id="cadastro" class="d-none">
 		<h3 class="mt-3 mb-3">Cadastrar Usuario</h3>
@@ -15,37 +14,39 @@
 			</div>
 		</div>
 		<div class="d-flex justify-content-between">
-			<button type="button" id="voltar" class="btn btn-danger">Voltar</button>
-			<button type="button" id="salvar" disabled class="btn btn-primary">Salvar</button>
+			<button type="button" id="voltar" class="btn btn-danger btn-lg">Voltar</button>
+			<button type="button" id="salvar" disabled class="btn btn-primary btn-lg">Salvar</button>
 		</div>
 	</div>
 
 	<div id="lista">
-		<div>
-			<button id="cadastrar" type="button" class="btn btn-primary mb-3">Cadastrar</button>
+		<div class="d-flex justify-content-end">
+			<button style="float: right;" id="cadastrar" type="button" class="btn btn-success btn-lg mb-3">Cadastrar <i class="fa fa-user-plus ms-1"></i></button>
 		</div>
-		<div class="card">
+		<div class="card mt-5">
 			<div class="card-header">
-				<h3>Lista Usuarios</h3>
+				<h4>Lista de Usuários Cadastrados</h4>
 			</div>
 			<div class="card-body">
 
 				<table class="table table-striped table-bordered">
 					<thead>
 						<tr>
-							<th style="width: 10%;" scope="col">ID</th>
+							<th style="width: 5%;" scope="col">ID</th>
 							<th scope="col">Usuário</th>
-							<th style="width: 10%;" scope="col">Ação</th>
+							<th style="width: 8%;" scope="col">Ação</th>
 						</tr>
 					</thead>
 					<tbody id="tbody">
 
 					</tbody>
 				</table>
-
 			</div>
 		</div>
 
+	</div>
+	<div class="mt-3">
+		<div id="alert" class="alert d-none" role="alert"></div>
 	</div>
 
 </div>
@@ -89,6 +90,7 @@
 			if (usuario.ativo == 1) {
 				//botao.textContent = 'Ação'
 				botao.classList.add('btn', 'btn-danger')
+				botao.style.width = '100%'
 				let icone = document.createElement('i')
 				icone.classList.add('fa-solid', 'fa-toggle-off')
 				botao.addEventListener('click', async () => {
@@ -130,6 +132,7 @@
 			} else {
 				//botao.textContent = 'Ação'
 				botao.classList.add('btn', 'btn-success')
+				botao.style.width = '100%'
 				let icone = document.createElement('i')
 				icone.classList.add('fa-solid', 'fa-toggle-on')
 				botao.addEventListener('click', async () => {
