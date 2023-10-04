@@ -36,6 +36,11 @@
 				sequencia_down = `<button class="btn btn-success mt-auto w-100" onclick="altera_sequencia_down(${comunicados[i].id})"><i class="fa-solid fa-arrow-down-1-9"></i></i></button>`
 			} 
 
+			let comunicado_link = `<a class="ms-2" style="font-size: 18px;" href="${comunicados[i].link}" target="_blank" rel="noopener noreferrer">Link</a>`
+			if (comunicados[i].link == '') {
+				comunicado_link = ``
+			}
+
 			comunicado += 
 			`
 			<div class="m-3">
@@ -48,7 +53,7 @@
 						<span class="ms-2" style="font-size: 30px; font-weight: 500;">${comunicados[i].titulo}</span>
 						<span class="me-2" style="float: right; font-size: 35px; font-weight: 500;">${comunicados[i].sequencia}</span>
 						<br><br><br>
-						<a class="ms-2" style="font-size: 18px;" href="${comunicados[i].link}" target="_blank" rel="noopener noreferrer">Link</a>
+						${comunicado_link}
 					</div>
 					
 					<div class="d-flex flex-column align-items-end m-1">

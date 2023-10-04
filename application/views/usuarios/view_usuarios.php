@@ -3,19 +3,34 @@
 	<div id="cadastro" class="d-none">
 		<h3 class="mt-3 mb-3">Cadastrar Usuario</h3>
 
-		<div class="row g-3">
+		<div class="row g-3" style="margin-top: 10vh;">
 			<div class="col-md-6 mb-3">
-				<label for="usuario" class="form-label">Usuario</label>
+				<label style="font-weight: 700; font-size: 1.1em;" for="usuario" class="form-label"><span class="text-danger">*</span> Usuario</label>
 				<input type="text" class="form-control" id="usuario" name="usuario" required>
 			</div>
 			<div class="col-md-6 mb-3">
-				<label for="nova_senha" class="form-label">Senha</label>
+				<label style="font-weight: 700; font-size: 1.1em;" for="nova_senha" class="form-label">Senha</label>
 				<input type="text" class="form-control" id="senha" name="senha" disabled value="Abc@123">
 			</div>
 		</div>
-		<div class="d-flex justify-content-between">
-			<button type="button" id="voltar" class="btn btn-danger btn-lg">Voltar</button>
-			<button type="button" id="salvar" disabled class="btn btn-primary btn-lg">Salvar</button>
+		<!-- <div id="aviso_usuario"><br><br><br><br></div> -->
+		<div class="row g-3">
+			<div class="col-md-6 mb-3" id="aviso_usuario">
+				<ul style="font-weight: 700;">
+					<li id="aviso_1" class="text-danger">O usuário deve conter pelo menos 1 caractere.</li>
+					<li id="aviso_2" class="text-danger">O usuário deve ter entre 4 a 20 caracteres.</li>
+				</ul>
+			</div>
+			<div class="col-md-6 mb-3" id="aviso_senha">
+				<ul style="font-weight: 700;">
+					<li id="aviso_3" class="text-secondary">Senha padrão do sistema.</li>
+				</ul>
+			</div>
+
+		</div>
+		<div class="d-flex justify-content-between" style="margin-top: 18vh;">
+			<button type="button" id="voltar" class="btn btn-danger btn-lg"><i class="fa fa-arrow-left me-1"></i> Voltar</button>
+			<button type="button" id="salvar" disabled class="btn btn-primary btn-lg">Salvar <i class="fa-regular fa-floppy-disk ms-1"></i></button>
 		</div>
 	</div>
 
@@ -45,7 +60,7 @@
 		</div>
 
 	</div>
-	<div class="mt-3">
+	<div class="mt-5">
 		<div id="alert" class="alert d-none" role="alert"></div>
 	</div>
 
@@ -197,7 +212,26 @@
 	usuario.addEventListener('keyup', () => {
 		usuario.value = usuario.value.trim()
 
+		// Validação se a variável usuario contém pelo menos 1 letra
+		let containsLetter = /[a-zA-Z]/.test(usuario.value);
+
+		if (containsLetter) {
+			document.querySelector('#aviso_1').classList.remove('text-danger')
+			document.querySelector('#aviso_1').classList.add('text-success')
+		} else {
+			document.querySelector('#aviso_1').classList.add('text-danger')
+			document.querySelector('#aviso_1').classList.remove('text-success')
+		}
+
 		if (usuario.value.length > 3 && usuario.value.length < 21) {
+			document.querySelector('#aviso_2').classList.remove('text-danger')
+			document.querySelector('#aviso_2').classList.add('text-success')
+		} else {
+			document.querySelector('#aviso_2').classList.add('text-danger')
+			document.querySelector('#aviso_2').classList.remove('text-success')
+		}
+
+		if (usuario.value.length > 3 && usuario.value.length < 21 && containsLetter) {
 			salvar.disabled = false;
 		} else {
 			salvar.disabled = true;
