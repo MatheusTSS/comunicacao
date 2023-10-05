@@ -1,31 +1,29 @@
 <div class="container mt-5">
 
-	<div id="cadastro">
-		<h3 class="mt-3 mb-3">Cadastrar Comunicado</h3>
-
+	<div id="cadastro" style="margin-top: 12vh;">
 		<form action="<?= base_url('comunicado/cadastra_comunicado') ?>" method="post" enctype="multipart/form-data">
 			<div class="row g-1 mb-3">
-				<label for="titulo" class="form-label"><span class="text-danger">* </span>Título</label>
+				<label for="titulo" style="font-weight: 700; font-size: 1.1em;" class="form-label"><span class="text-danger">* </span>Título</label>
 				<input type="text" class="form-control" id="titulo" name="titulo" maxlength="100" required>
 			</div>
 
 			<div class="row g-1 mb-3">
-				<label for="descricao">Descrição</label>
+				<label for="descricao" style="font-weight: 700; font-size: 1.1em;">Descrição</label>
 				<textarea class="form-control" placeholder="Escreva sua descrição aqui (opcional)" id="descricao" name="descricao" rows="3" maxlength="255"></textarea>
 			</div>
 
 			<div class="row g-1 mb-3">
-				<label for="link" class="form-label">Link</label>
+				<label for="link" class="form-label" style="font-weight: 700; font-size: 1.1em;">Link</label>
 				<input type="text" class="form-control" placeholder="Adicione um link aqui (opcional)" id="link" name="link" maxlength="255">
 			</div>
 
 			<div class="row g-1 mb-3">
-				<label for="imagem" class="form-label"><span class="text-danger">* </span>Imagem</label>
+				<label for="imagem" class="form-label" style="font-weight: 700; font-size: 1.1em;"><span class="text-danger">* </span>Imagem</label>
 				<input type="file" class="form-control" id="imagem" name="imagem[]" required>
 			</div>
 
-			<div class="d-flex justify-content-end">
-				<button type="submit" id="salvar" disabled class="btn btn-primary">Salvar</button>
+			<div class="d-flex justify-content-end mt-5">
+				<button type="submit" id="salvar" disabled class="btn btn-primary btn-lg">Salvar <i class="fa-regular fa-floppy-disk ms-1"></i></button>
 			</div>
 		</form>
 	</div>
@@ -51,7 +49,9 @@
 	})
 
 	function valida_dados() {
-		if (valida_titulo() && valida_imagem()) {
+		let v_titulo = valida_titulo()
+		let v_imagem = valida_imagem()
+		if (v_titulo && v_imagem) {
 			salvar.disabled = false;
 		} else {
 			salvar.disabled = true;
@@ -86,6 +86,12 @@
 			return false
 		} else {
 			const tamanho = imagem.files[0].size / 1024 / 1024; // para mb
+			const width = imagem.clientWidth;
+			const height = imagem.clientHeight;
+
+			console.log(imagem.naturalHeight)
+			console.log(width)
+			console.log(height)
 
 			if (tamanho > 3) {
 				imagem.value = ''
