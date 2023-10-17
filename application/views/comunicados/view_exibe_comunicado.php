@@ -5,31 +5,31 @@
 
 <body>
 
-	<div class="m-2 container-fluid">
-		<div class="mt-3">
+	<div class="container-fluid">
+		<div>
 			<div class="row">
 				<!-- Coluna 1: Imagem (50% da largura) -->
-				<div class="col-md-6" style="background-color: #f0f0f0; padding: 0;">
+				<div class="col-md-6" style="padding: 0;">
 					<!-- Conteúdo da coluna 1 (Sua imagem aqui) -->
 					<!-- <img src="<?php //echo base_url($comunicado['diretorio']) 
 									?>" alt="Imagem" style="width: auto; height: 90vh;"> -->
-					<img src="<?= base_url($comunicado['diretorio']) ?>" alt="Imagem" style=" width: 100%; height: 100%; max-height: 600px;">
+					<img class="mt-5" src="<?= base_url($comunicado['diretorio']) ?>" alt="Imagem" style=" width: 100%; height: 100%; max-height: 600px;">
 				</div>
 	
 				<!-- Coluna 2: Formulário (40% da largura) -->
 				<div class="col-md-5" style="background-color: #e0e0e0;">
 					<!-- Conteúdo da coluna 2 -->
 					<form>
-						<div class="mb-3">
-							<label for="titulo" class="form-label">Título</label>
+						<div class="mb-3 ms-1 me-1" style="margin-top: 8vh;">
+							<label for="titulo" class="form-label" style="font-weight: 700;" ><span class="text-danger">* </span>Título</label>
 							<input type="text" class="form-control" id="titulo" disabled value="<?= $comunicado['titulo'] ?>">
 						</div>
-						<div class="mb-3">
-							<label for="descricao" class="form-label">Descrição</label>
-							<textarea class="form-control" id="descricao" disabled rows="4"><?= $comunicado['descricao'] ?></textarea>
+						<div class="mb-3  ms-1 me-1" style="margin-top: 10vh;">
+							<label for="descricao" class="form-label" style="font-weight: 700;">Descrição</label>
+							<textarea class="form-control" id="descricao" disabled rows="5"><?= $comunicado['descricao'] ?></textarea>
 						</div>
-						<div class="mb-3">
-							<label for="link" class="form-label">Link</label>
+						<div class="mb-3 ms-1 me-1" style="margin-top: 8vh;">
+							<label for="link" class="form-label" style="font-weight: 700;">Link</label>
 							<input type="text" class="form-control" id="link" disabled value="<?= $comunicado['link'] ?>">
 						</div>
 					</form>
@@ -38,9 +38,9 @@
 				<!-- Coluna 3: Botões (10% da largura) -->
 				<div class="col-md-1" style="background-color: #c0c0c0;">
 					<!-- Conteúdo da coluna 3 -->
-					<div class="d-flex flex-column justify-content-start align-items-center" style="height: 100%;">
+					<div class="d-flex flex-column justify-content-start align-items-center mt-2" style="height: 100%;">
 						<button id="fechar" class="btn btn-danger m-1" style="width: 80px;"><i class="fa fa-close"></i></button>
-						<div style="margin-top: 35vh;"></div>
+						<div style="margin-top: 30vh;"></div>
 						<button id="editar" class="btn btn-primary m-1" style="width: 80px;"><i class="fa fa-edit"></i></button>
 						<button id="salvar" disabled class="btn btn-success m-1 d-none" style="width: 80px;"><i class="fa fa-save"></i></button>
 	

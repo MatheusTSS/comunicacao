@@ -1,11 +1,10 @@
-<footer class="py-4 bg-light mt-auto">
-	<div class="container-fluid px-4">
+<footer class="py-4 mt-auto" style="background-color: #fff;">
+	<div class="container-fluid px-4" >
 		<div class="d-flex align-items-center justify-content-between small">
-			<div class="text-muted">Copyright &copy; <?=APP_NAME?> <?=date('Y')?></div>
 			<div>
-				<a href="#">Política de Privacidade</a>
+				<!-- <a href="#">Política de Privacidade</a>
 				&middot;
-				<a href="#">Termos &amp; Condições</a>
+				<a href="#">Termos &amp; Condições</a> -->
 			</div>
 		</div>
 	</div>
