@@ -28,8 +28,8 @@
 		</div>
 
 		<br>
-		<div class="col-12" style="margin-top: 10vh;">
-			<button style="float: right;" type="submit" id="salvar" disabled class="btn btn-primary btn-lg">Salvar <i class="fa-regular fa-floppy-disk ms-1"></i></button>
+		<div class="col-12" style="margin-top: 7vh;">
+			<button style="float: right;" type="submit" id="salvar" disabled class="btn btn-primary">Salvar <i class="fa-regular fa-floppy-disk ms-1"></i></button>
 		</div>
 	</form>
 </div>

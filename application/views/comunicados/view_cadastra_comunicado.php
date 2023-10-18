@@ -23,7 +23,7 @@
 			</div>
 
 			<div class="d-flex justify-content-end mt-5">
-				<button type="submit" id="salvar" disabled class="btn btn-primary btn-lg">Salvar <i class="fa-regular fa-floppy-disk ms-1"></i></button>
+				<button type="submit" id="salvar" disabled class="btn btn-primary">Salvar <i class="fa-regular fa-floppy-disk ms-1"></i></button>
 			</div>
 		</form>
 	</div>

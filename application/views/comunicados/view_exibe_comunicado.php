@@ -24,7 +24,7 @@
 							<label for="titulo" class="form-label" style="font-weight: 700;" ><span class="text-danger">* </span>Título</label>
 							<input type="text" class="form-control" id="titulo" disabled value="<?= $comunicado['titulo'] ?>">
 						</div>
-						<div class="mb-3  ms-1 me-1" style="margin-top: 10vh;">
+						<div class="mb-3 ms-1 me-1" style="margin-top: 10vh;">
 							<label for="descricao" class="form-label" style="font-weight: 700;">Descrição</label>
 							<textarea class="form-control" id="descricao" disabled rows="5"><?= $comunicado['descricao'] ?></textarea>
 						</div>

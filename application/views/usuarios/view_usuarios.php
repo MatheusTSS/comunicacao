@@ -1,11 +1,10 @@
 <div class="container mt-5">
 
 	<div id="cadastro" class="d-none">
-		<h3 class="mt-3 mb-3">Cadastrar Usuario</h3>
 
-		<div class="row g-3" style="margin-top: 10vh;">
+		<div class="row g-3" style="margin-top: 15vh;">
 			<div class="col-md-6 mb-3">
-				<label style="font-weight: 700; font-size: 1.1em;" for="usuario" class="form-label"><span class="text-danger">*</span> Usuario</label>
+				<label style="font-weight: 700; font-size: 1.1em;" for="usuario" class="form-label"><span class="text-danger">*</span> Usuário</label>
 				<input type="text" class="form-control" id="usuario" name="usuario" required>
 			</div>
 			<div class="col-md-6 mb-3">
@@ -28,15 +27,15 @@
 			</div>
 
 		</div>
-		<div class="d-flex justify-content-between" style="margin-top: 18vh;">
-			<button type="button" id="voltar" class="btn btn-danger btn-lg"><i class="fa fa-arrow-left me-1"></i> Voltar</button>
-			<button type="button" id="salvar" disabled class="btn btn-primary btn-lg">Salvar <i class="fa-regular fa-floppy-disk ms-1"></i></button>
+		<div class="d-flex justify-content-between" style="margin-top: 22vh;">
+			<button type="button" id="voltar" class="btn btn-danger"><i class="fa fa-arrow-left me-1"></i> Voltar</button>
+			<button type="button" id="salvar" disabled class="btn btn-primary ">Salvar <i class="fa-regular fa-floppy-disk ms-1"></i></button>
 		</div>
 	</div>
 
 	<div id="lista">
 		<div class="d-flex justify-content-end">
-			<button style="float: right;" id="cadastrar" type="button" class="btn btn-success btn-lg mb-3">Cadastrar <i class="fa fa-user-plus ms-1"></i></button>
+			<button style="float: right;" id="cadastrar" type="button" class="btn btn-success mb-3">Cadastrar <i class="fa fa-user-plus ms-1"></i></button>
 		</div>
 		<div class="card mt-5">
 			<div class="card-header">
