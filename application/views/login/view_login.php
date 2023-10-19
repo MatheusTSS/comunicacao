@@ -18,6 +18,7 @@
 	<link rel="stylesheet" href="<?= base_url('assets/login/css/style.css') ?>">
 
 	<script src="<?= base_url('assets/js/all.js') ?>"></script>
+	<link rel="icon" href="<?= base_url('assets/img/communication-logo.png')?>" type="image/gif">
 
 	<style>
 		html,
